@@ -26,17 +26,15 @@ async function createScreenshot(): Promise<string | null> {
     | undefined;
   if (!track) return null;
 
-  // @ts-expect-error – ImageCapture is not (yet) typed in lib.dom.d.ts
-  const imageCapture = new ImageCapture(track);
-  const bitmap = await imageCapture.grabFrame();
-
   const canvas = document.createElement("canvas");
-  canvas.width = bitmap.width;
-  canvas.height = bitmap.height;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
   const ctx = canvas.getContext("2d");
-  ctx?.drawImage(bitmap, 0, 0);
-
-  return canvas.toDataURL("image/png");
+  if (ctx) {
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL("image/png");
+  }
+  return null;
 }
 
 function downloadDataUrl(dataUrl: string, filename = "screenshot.png") {

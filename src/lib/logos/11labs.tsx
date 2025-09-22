@@ -17,8 +17,8 @@ export const ElevenLabsLogo = () => {
         y2="24"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#41474a"></stop>
-        <stop offset="1" stop-color="#323538"></stop>
+        <stop offset="0" stopColor="#41474a"></stop>
+        <stop offset="1" stopColor="#323538"></stop>
       </linearGradient>
       <path
         fill="url(#wcu9za2JCL5_IXX0lZWPca_kQSS04V7DmPz_gr1)"
@@ -32,8 +32,8 @@ export const ElevenLabsLogo = () => {
         y2="24"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#41474a"></stop>
-        <stop offset="1" stop-color="#323538"></stop>
+        <stop offset="0" stopColor="#41474a"></stop>
+        <stop offset="1" stopColor="#323538"></stop>
       </linearGradient>
       <path
         fill="url(#wcu9za2JCL5_IXX0lZWPcb_kQSS04V7DmPz_gr2)"
