@@ -18,24 +18,18 @@ async function createScreenshot(): Promise<string | null> {
   ) as HTMLVideoElement | null;
   if (!video) return null;
 
-  // Non-standard APIs are still the most concise way to capture a single frame.
-  // We fall back gracefully if the browser does not support them.
-  // @ts-expect-error – captureStream is not (yet) typed in lib.dom.d.ts
-  const track = video.captureStream?.().getVideoTracks?.()[0] as
-    | MediaStreamTrack
-    | undefined;
-  if (!track) return null;
+  // @ts-expect-error – ImageCapture is not (yet) typed in lib.dom.d.ts
+  const imageCapture = new ImageCapture(track);
+  // @ts-expect-error grabFrame missing in TS typings
+  const bitmap = await imageCapture.grabFrame();
 
   const canvas = document.createElement("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
   const ctx = canvas.getContext("2d");
-  if (ctx) {
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL("image/png");
-  }
-  return null;
-}
+  ctx?.drawImage(bitmap, 0, 0);
+
+  return canvas.toDataURL("image/png");}
 
 function downloadDataUrl(dataUrl: string, filename = "screenshot.png") {
   const a = document.createElement("a");
