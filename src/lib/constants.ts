@@ -68,7 +68,7 @@ export const providerInformation = {
 };
 
 export const MESSENGER_CALL_URL = "groupcall/ROOM";
-export const MESSENGER_CONVERSATION_URL = "messages/e2ee/t";
+export const MESSENGER_CONVERSATION_URL = "messages";
 
 export const aiChatProviders = [
   "openai",

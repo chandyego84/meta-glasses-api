@@ -29,7 +29,8 @@ async function createScreenshot(): Promise<string | null> {
   const ctx = canvas.getContext("2d");
   ctx?.drawImage(bitmap, 0, 0);
 
-  return canvas.toDataURL("image/png");}
+  return canvas.toDataURL("image/png");
+}
 
 function downloadDataUrl(dataUrl: string, filename = "screenshot.png") {
   const a = document.createElement("a");

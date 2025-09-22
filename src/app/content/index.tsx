@@ -10,11 +10,11 @@ import { CallScreenView } from "./call-screen-view";
 import { ConversionScreenView } from "./conversion-screen-view";
 
 const ContentScriptUI = () => {
-  const onTheCallScreen = document.location.href.includes(MESSENGER_CALL_URL);
-  const onTheConversationScreen = document.location.href.includes(
-    MESSENGER_CONVERSATION_URL
-  );
-
+  const currentUrl = document.location.href;
+  const onTheCallScreen = currentUrl.includes(MESSENGER_CALL_URL);
+  const onTheConversationScreen = currentUrl.includes(MESSENGER_CONVERSATION_URL) 
+    && currentUrl.includes('/t');
+  
   return (
     <div className="fixed bottom-0 flex flex-col gap-4 p-4">
       {onTheConversationScreen && <ConversionScreenView />}
