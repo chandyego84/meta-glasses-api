@@ -84,9 +84,11 @@ export function ConversionScreenView() {
     const messageLine = parent.childNodes[1] as HTMLDivElement | undefined;
     if (!messageLine || (messageLine as any).dataset?.processed) return;
     if (messageLine.childNodes.length <= 1) return;
+    
+    // message is not from client/user
     if (
       messageLine.previousSibling &&
-      messageLine.previousSibling.textContent === "You sent"
+      messageLine.previousSibling.textContent != "You sent"
     )
       return;
 
@@ -376,9 +378,6 @@ export function ConversionScreenView() {
         if (userScrolling) {
           stopChatMonitoring();
           userScrolling = false;
-        } else {
-          // Programmatic scroll
-          console.log("programmatic scroll");
         }
       });
       return () => {
