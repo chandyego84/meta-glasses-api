@@ -121,7 +121,6 @@ export function ConversionScreenView() {
       messageLine.previousSibling.textContent != "You sent"
     )
       return;
-    }
     
     return messageLine;
   }
