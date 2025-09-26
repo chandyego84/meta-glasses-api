@@ -118,8 +118,8 @@ export function ConversionScreenView() {
         
     if (
       messageLine.previousSibling &&
-      messageLine.previousSibling.textContent === "You sent"
-    ) {
+      messageLine.previousSibling.textContent != "You sent"
+    )
       return;
     }
     
@@ -409,9 +409,6 @@ export function ConversionScreenView() {
         if (userScrolling) {
           stopChatMonitoring();
           userScrolling = false;
-        } else {
-          // Programmatic scroll
-          console.log("programmatic scroll");
         }
       });
       return () => {
