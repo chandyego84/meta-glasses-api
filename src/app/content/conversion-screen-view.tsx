@@ -66,30 +66,63 @@ export function ConversionScreenView() {
   }
 
   function getNewMessageLine(mutation: MutationRecord) {
-    if (!mutation.addedNodes || mutation.addedNodes.length === 0) return;
+    if (!mutation.addedNodes || mutation.addedNodes.length === 0) {
+      logMessage("No added nodes found in mutation");
+      return;
+    }
     const div = mutation.addedNodes[0];
-    if (!(div instanceof HTMLDivElement)) return;
+    if (!div) {
+      return;
+    }
+    if (!(div instanceof HTMLDivElement)) {
+      return;
+    }
+
     const divParent = div.parentElement;
     if (!divParent) return;
+
     const children = Array.from(divParent.childNodes);
     if (children[children.length - 1] !== div) return;
 
+    // Look for the message container which has class 'html-div'
+    // This is the div that Facebook uses to display message content
     const messageContainer = div.querySelector(
       "div.html-div"
     ) as HTMLDivElement | null;
-    if (!messageContainer) return;
-    const parent = messageContainer.parentElement;
-    if (!parent) return;
+    if (!messageContainer) {
+      return;
+    }
 
-    const messageLine = parent.childNodes[1] as HTMLDivElement | undefined;
-    if (!messageLine || (messageLine as any).dataset?.processed) return;
-    if (messageLine.childNodes.length <= 1) return;
+    const parent = messageContainer.parentElement;
+    if (!parent) {
+      logMessage("Message container has no parent element");
+      return;
+    }
+
+    // Get the actual message line (second child of parent)
+    const messageLine = parent.childNodes[1] as HTMLDivElement | undefined;    
+    if (!messageLine) {
+      logMessage("Message line not found (no second child node)");
+      return;
+    }
+    
+    if ((messageLine as any).dataset?.processed) {
+      logMessage("Message already processed (found processed flag)");
+      return;
+    }
+    
+    if (messageLine.childNodes.length <= 1) {
+      logMessage("Message line has no content (empty message)");
+      return;
+    }
+        
     if (
       messageLine.previousSibling &&
       messageLine.previousSibling.textContent === "You sent"
-    )
+    ) {
       return;
-
+    }
+    
     return messageLine;
   }
 
