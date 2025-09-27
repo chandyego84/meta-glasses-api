@@ -12,10 +12,14 @@ import { Eye, EyeOff } from "lucide-react";
 import { ChatModelSettings } from "./components/chat-model-settings";
 import { ChatProviderSettings } from "./components/chat-provider-settings";
 import { SettingHeader } from "./components/setting-header";
+import { SpotifyClient } from "@/lib/spotify";
 
 export function ConversionScreenView() {
   const { session, setSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
+  const spotifyClient = new SpotifyClient();
+
+  const programResponseTag: string = "--Program Response--";
 
   const threadList = useRef<HTMLDivElement | null>(null);
 
@@ -115,13 +119,18 @@ export function ConversionScreenView() {
       logMessage("Message line has no content (empty message)");
       return;
     }
+
+    if (messageLine.textContent.includes(programResponseTag)) {
+      logMessage(`Message line {${messageLine.textContent}} is a program response. Do not process.`);
+      return;
+    }
         
     if (
       messageLine.previousSibling &&
       messageLine.previousSibling.textContent != "You sent"
     )
       return;
-    
+
     return messageLine;
   }
 
@@ -267,18 +276,19 @@ export function ConversionScreenView() {
   }
 
   function enterMessage(message: string) {
+    const fullMessage = `*${programResponseTag}*\n${message}`;
     const messageInput = document.querySelector("div[aria-label='Message']");
     if (!messageInput) {
       return;
     }
 
-    messageInput.innerHTML = message;
+    messageInput.innerHTML = fullMessage;
     messageInput.dispatchEvent(new Event("focus"));
     messageInput.dispatchEvent(
       new InputEvent("input", {
         bubbles: true,
         cancelable: true,
-        data: message,
+        data: fullMessage,
         inputType: "insertText",
       })
     );
