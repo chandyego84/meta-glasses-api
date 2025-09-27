@@ -7,7 +7,7 @@ import { OpenAILogo } from "./logos/openai";
 import { PerplexityLogo } from "./logos/perplexity";
 import { XAILogo } from "./logos/xai";
 
-export const providerInformation = {
+export const aiProviderInformation = {
   openai: {
     title: "OpenAI",
     url: "https://openai.com",
@@ -64,6 +64,16 @@ export const providerInformation = {
     modelsUrl: "https://www.minimax.io/platform_overview",
     apiKeyUrl: "https://www.minimax.io/platform",
     logo: MinimaxLogo,
+  },
+};
+
+export const extraProviderInformation = {
+  spotify: {
+    title: "Spotify",
+    url: "https://developer.spotify.com",
+    docsUrl: "https://developer.spotify.com/documentation/web-api",
+    registerUrl: "https://developer.spotify.com/dashboard",
+    logo: null, // TODO: Add Spotify logo component
   },
 };
 
@@ -162,4 +172,6 @@ export const toolTips = {
     "Takes a screenshot of the current screen and sends it to the server for processing.",
   requestDisplayPermission:
     "Requests permission to access the display. This is required to take screenshots of the current screen.",
+  spotifyClientId: "Your Spotify Developer Dashboard Client ID",
+  spotifyClientSecret: "Your Spotify Developer Dashboard Client Secret",
 };

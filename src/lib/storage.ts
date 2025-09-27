@@ -1,6 +1,6 @@
 import { type WxtStorageItem, storage as browserStorage } from "#imports";
 import { useEffect, useState } from "react";
-import { Provider, TTSProvider } from "~/types";
+import { Provider, TTSProvider, ExtraProvider, SpotifyCredentials } from "~/types";
 import { Log } from "./messaging";
 import { type SettingsStore } from "./store/settings.store";
 
@@ -46,6 +46,8 @@ const storage = {
   ),
   [StorageKey.API_KEYS]: browserStorage.defineItem<{
     [key in Provider | TTSProvider]: string;
+  } & {
+    [ExtraProvider.SPOTIFY]: SpotifyCredentials;
   }>(StorageKey.API_KEYS, {
     fallback: {
       openai: "",
@@ -56,6 +58,10 @@ const storage = {
       minimax: "",
       deepseek: "",
       xai: "",
+      spotify: {
+        clientId: "",
+        clientSecret: ""
+      },
     },
   }),
 } as const;

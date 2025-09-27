@@ -1,10 +1,12 @@
 import { create } from "zustand";
-import type { Provider, TTSProvider } from "~/types";
+import type { Provider, TTSProvider, ExtraProvider, SpotifyCredentials } from "~/types";
 import { getStorage, StorageKey } from "../storage";
 
 export interface ApiKeyStore {
   apiKeys: {
     [key in Provider | TTSProvider]: string;
+  } & {
+    [ExtraProvider.SPOTIFY]: SpotifyCredentials;
   };
   setApiKeys: (apiKeys: Partial<ApiKeyStore["apiKeys"]>) => void;
   isLoaded: boolean;

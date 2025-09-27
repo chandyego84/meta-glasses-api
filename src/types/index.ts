@@ -20,6 +20,15 @@ export const Provider = {
   XAI: "xai",
 } as const;
 
-export type TTSProvider = (typeof TTSProvider)[keyof typeof TTSProvider];
+export const ExtraProvider = {
+  SPOTIFY: "spotify",
+} as const;
 
+export interface SpotifyCredentials {
+  clientId: string;
+  clientSecret: string;
+}
+
+export type TTSProvider = (typeof TTSProvider)[keyof typeof TTSProvider];
 export type Provider = (typeof Provider)[keyof typeof Provider];
+export type ExtraProvider = (typeof ExtraProvider)[keyof typeof ExtraProvider];
