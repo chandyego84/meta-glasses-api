@@ -6,6 +6,7 @@ import { MinimaxLogo } from "./logos/minimax";
 import { OpenAILogo } from "./logos/openai";
 import { PerplexityLogo } from "./logos/perplexity";
 import { XAILogo } from "./logos/xai";
+import { SpotifyLogo } from "./logos/spotify";
 
 export const aiProviderInformation = {
   openai: {
@@ -73,7 +74,7 @@ export const extraProviderInformation = {
     url: "https://developer.spotify.com",
     docsUrl: "https://developer.spotify.com/documentation/web-api",
     registerUrl: "https://developer.spotify.com/dashboard",
-    logo: null, // TODO: Add Spotify logo component
+    logo: SpotifyLogo
   },
 };
 

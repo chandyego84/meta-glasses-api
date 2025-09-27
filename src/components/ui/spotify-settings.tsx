@@ -17,7 +17,9 @@ export const SpotifySettings = () => {
         <h3 className="text-md font-bold text-white">
           {extraProviderInformation.spotify.title}
         </h3>
-        {/* TODO: Add Spotify Logo */}
+        <div className="w-8 h-8 flex items-center justify-center">
+          {extraProviderInformation.spotify.logo()}
+        </div>
       </div>
 
       <label
