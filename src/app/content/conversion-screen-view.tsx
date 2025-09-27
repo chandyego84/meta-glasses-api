@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "#imports";
 import {
-  providerInformation,
+  aiProviderInformation,
   providerToTTSModels,
   toolTips,
 } from "@/lib/constants";
@@ -325,15 +325,15 @@ export function ConversionScreenView() {
             }
             {providerToTTSModels[ttsModel as keyof typeof providerToTTSModels]
               .provider &&
-            providerInformation[
+            aiProviderInformation[
               providerToTTSModels[ttsModel as keyof typeof providerToTTSModels]
-                .provider as keyof typeof providerInformation
+                .provider as keyof typeof aiProviderInformation
             ]
               ? ` (${
-                  providerInformation[
+                  aiProviderInformation[
                     providerToTTSModels[
                       ttsModel as keyof typeof providerToTTSModels
-                    ].provider as keyof typeof providerInformation
+                    ].provider as keyof typeof aiProviderInformation
                   ].title
                 })`
               : ""}

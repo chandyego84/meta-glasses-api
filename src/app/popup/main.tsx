@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/layout";
-import { providerInformation } from "@/lib/constants";
+import { aiProviderInformation } from "@/lib/constants";
 import { Log, Message, onMessage } from "@/lib/messaging";
 import { StorageKey, useStorage } from "@/lib/storage";
 import { useApiKeyStore } from "@/lib/store/api-key.store";
@@ -7,6 +7,7 @@ import { Globe, ListCollapse, SettingsIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider, TTSProvider } from "~/types";
+import { SpotifySettings } from "@/components/ui/spotify-settings";
 
 const Popup = () => {
   const [activeTab, setActiveTab] = useState("settings");
@@ -60,13 +61,23 @@ const Popup = () => {
             }`}
             onClick={() => setActiveTab("settings")}
           >
-            API Keys
+            LLM API Keys
+            <SettingsIcon className="w-4 h-4" />
+          </button>
+          <button
+            className={`text-sm flex items-center gap-2 cursor-pointer ${
+              activeTab === "extraSettings" ? "text-white" : "text-gray-400"
+            }`}
+            onClick={() => setActiveTab("extraSettings")}
+          >
+            Other API Keys
             <SettingsIcon className="w-4 h-4" />
           </button>
         </div>
 
         {activeTab === "logs" && <Logs />}
-        {activeTab === "settings" && <Settings />}
+        {activeTab === "settings" && <LLMSettings />}
+        {activeTab === "extraSettings" && <SpotifySettings />}
 
         {!isWindowedPopup && (
           <button
@@ -172,14 +183,14 @@ const ProviderSetting = ({ provider }: { provider: string }) => {
   const apiKey = apiKeysStore.apiKeys[provider as Provider | TTSProvider];
 
   const Logo =
-    providerInformation[provider as keyof typeof providerInformation].logo;
+    aiProviderInformation[provider as keyof typeof aiProviderInformation].logo;
 
   return (
     <div className="flex flex-col gap-2.5 w-full">
       <div className="flex flex-row items-center gap-2.5">
         <h3 className="text-md font-bold text-white">
           {
-            providerInformation[provider as keyof typeof providerInformation]
+            aiProviderInformation[provider as keyof typeof aiProviderInformation]
               .title
           }
         </h3>
@@ -195,7 +206,7 @@ const ProviderSetting = ({ provider }: { provider: string }) => {
         <a
           className="flex items-center justify-center gap-2 h-10 rounded-full drop-shadow-2xl cursor-pointer hover:underline"
           href={
-            providerInformation[provider as keyof typeof providerInformation]
+            aiProviderInformation[provider as keyof typeof aiProviderInformation]
               .apiKeyUrl
           }
           target="_blank"
@@ -217,7 +228,7 @@ const ProviderSetting = ({ provider }: { provider: string }) => {
       <a
         className="text-sm mt-1 flex  gap-2 h-10 hover:underline cursor-pointer flex items-center"
         href={
-          providerInformation[provider as keyof typeof providerInformation]
+          aiProviderInformation[provider as keyof typeof aiProviderInformation]
             .modelsUrl
         }
         target="_blank"
@@ -232,11 +243,11 @@ const ProviderSetting = ({ provider }: { provider: string }) => {
   );
 };
 
-const Settings = () => {
+const LLMSettings = () => {
   return (
     <div className="flex flex-col gap-3 w-full h-screen overflow-y-auto mb-6 px-2 pb-2">
       <hr className="w-full border-gray-400 py-0 my-0 h-1" />
-      {Object.keys(providerInformation).map((provider) => (
+      {Object.keys(aiProviderInformation).map((provider) => (
         <div key={provider}>
           <ProviderSetting provider={provider} />
         </div>

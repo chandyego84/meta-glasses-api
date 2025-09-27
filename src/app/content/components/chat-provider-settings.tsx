@@ -1,6 +1,6 @@
 import {
   aiChatProviders,
-  providerInformation,
+  aiProviderInformation,
   toolTips,
 } from "@/lib/constants";
 import { useSettingsStore } from "@/lib/store/settings.store";
@@ -21,8 +21,8 @@ export function ChatProviderSettings({ darkMode }: { darkMode: boolean }) {
         />
         <a
           href={
-            providerInformation[
-              settings.provider as keyof typeof providerInformation
+            aiProviderInformation[
+              settings.provider as keyof typeof aiProviderInformation
             ].url
           }
           target="_blank"
@@ -43,7 +43,7 @@ export function ChatProviderSettings({ darkMode }: { darkMode: boolean }) {
         {aiChatProviders.map((provider) => (
           <option key={provider} value={provider}>
             {
-              providerInformation[provider as keyof typeof providerInformation]
+              aiProviderInformation[provider as keyof typeof aiProviderInformation]
                 .title
             }
           </option>

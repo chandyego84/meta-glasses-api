@@ -1,5 +1,5 @@
 import {
-  providerInformation,
+  aiProviderInformation,
   providerToModels,
   toolTips,
 } from "@/lib/constants";
@@ -20,8 +20,8 @@ export function ChatModelSettings({ darkMode }: { darkMode: boolean }) {
         />
         <a
           href={
-            providerInformation[
-              settings.provider as keyof typeof providerInformation
+            aiProviderInformation[
+              settings.provider as keyof typeof aiProviderInformation
             ].modelsUrl
           }
           target="_blank"
