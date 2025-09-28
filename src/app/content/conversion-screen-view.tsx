@@ -13,6 +13,7 @@ import { ChatModelSettings } from "./components/chat-model-settings";
 import { ChatProviderSettings } from "./components/chat-provider-settings";
 import { SettingHeader } from "./components/setting-header";
 import { SpotifyClient } from "@/lib/spotify";
+import { ExtraProvider } from "@/types";
 
 export function ConversionScreenView() {
   const { session, setSession } = useSessionStore();
@@ -153,9 +154,13 @@ export function ConversionScreenView() {
 
   async function handleNewTextMessage(receivedMessage: string) {
     logMessage("User sent: " + receivedMessage);
+    let isAiResponse = false;
     try {
+      // TOOD: Process potential command (e.g., play a song on Spotify)      
+      // TODO: Add non-AI chat message type or program response message from a command.
+      isAiResponse = true;
       const aiResponse = await sendMessage(Message.AI_CHAT, receivedMessage);
-      sendMessageToUser(aiResponse);
+      sendMessageToUser(aiResponse, isAiResponse);
       if (settings.useTTS) {
         handleTts(aiResponse);
       }
@@ -165,14 +170,14 @@ export function ConversionScreenView() {
     }
   }
 
-  function sendMessageToUser(aiResponse: string) {
-    enterMessage(aiResponse);
+  function sendMessageToUser(response: string, isAiResponse: boolean) {
+    enterMessage(response);
+    const provider = isAiResponse ? settings.provider : settings.extraProvider;
+    const model = isAiResponse ? settings.model[settings.provider] : "{N/A}";
 
     setTimeout(() => {
       logMessage(
-        `Provider: ${settings.provider} | Model: ${
-          settings.model[settings.provider]
-        } | Message received: ${aiResponse}`
+        `Provider: ${provider} | Model: ${model} | Message received: ${response}`
       );
       sendMessageViaInput();
     }, 200);

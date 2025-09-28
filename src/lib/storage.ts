@@ -27,6 +27,7 @@ const storage = {
     {
       fallback: {
         imageQuality: 0.5,
+        extraProvider: null,
         provider: "openai",
         useTTS: false,
         model: {

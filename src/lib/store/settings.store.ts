@@ -1,10 +1,11 @@
 import { create } from "zustand";
-import type { Provider } from "~/types";
+import type { ExtraProvider, Provider } from "~/types";
 import { getStorage, StorageKey } from "../storage";
 
 export interface SettingsStore {
   settings: {
     imageQuality: number;
+    extraProvider: ExtraProvider | null;
     provider: Provider;
     useTTS: boolean;
     model: {

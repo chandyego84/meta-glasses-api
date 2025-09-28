@@ -1,5 +1,6 @@
 import { extraProviderInformation, toolTips } from "@/lib/constants";
 import { useApiKeyStore } from "@/lib/store/api-key.store";
+import { logMessage } from "@/lib/utils";
 import { ExtraProvider, SpotifyCredentials } from "@/types";
 import { Globe } from "lucide-react";
 
@@ -48,6 +49,7 @@ export const SpotifySettings = () => {
               clientId: e.target.value,
             },
           });
+          logMessage("Spotify ClientId set.");
         }}
       />
 
@@ -70,6 +72,7 @@ export const SpotifySettings = () => {
               clientSecret: e.target.value,
             },
           });
+          logMessage(`Spotify ClientSecret set.`);
         }}
       />
 
