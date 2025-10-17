@@ -12,12 +12,10 @@ import { Eye, EyeOff } from "lucide-react";
 import { ChatModelSettings } from "./components/chat-model-settings";
 import { ChatProviderSettings } from "./components/chat-provider-settings";
 import { SettingHeader } from "./components/setting-header";
-import { SpotifyClient } from "@/lib/spotify";
 
 export function ConversionScreenView() {
   const { session, setSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
-  const spotifyClient = new SpotifyClient();
 
   const programResponseTag: string = "--Program Response--";
 
