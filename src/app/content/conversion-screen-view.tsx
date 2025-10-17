@@ -19,6 +19,7 @@ export function ConversionScreenView() {
   const { session, setSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
   const spotifyClient = new SpotifyClient();
+  const [spotifyEmbedUrl, setSpotifyEmbedUrl] = useState<string | null>(null);
 
   const programResponseTag: string = "--Program Response--";
 
@@ -569,6 +570,18 @@ export function ConversionScreenView() {
           <ChatProviderSettings darkMode={true} />
           <ChatModelSettings darkMode={true} />
           {ttsSettings}
+          {spotifyEmbedUrl && (
+            <div className="w-full flex items-center justify-center mt-2">
+              <iframe
+                src={spotifyEmbedUrl}
+                width="300"
+                height="80"
+                allow="encrypted-media"
+                allowTransparency={true}
+                className="rounded-md drop-shadow-md"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
